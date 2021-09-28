@@ -17,6 +17,10 @@ var ratelimit rl.Limit
 func main() {
 	godotenv.Load()
 	db = newDatabase(os.Getenv("DATABASE_URL"))
+	port := os.Getenv("PORT")
+	if port == "" {
+		log.Fatal("$PORT must be set")
+	}
 	r := mux.NewRouter()
 	r.Use(mux.CORSMethodMiddleware(r))
 	r.HandleFunc("/", logger(indexPageHandler)).Methods("GET")
@@ -36,7 +40,7 @@ func main() {
 
 	srv := &http.Server{
 		Handler:      csrf.Protect([]byte(os.Getenv("CSRF_KEY")))(r),
-		Addr:         "0.0.0.0:9090",
+		Addr:         ":"+port,
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 		IdleTimeout:  time.Second * 60,
