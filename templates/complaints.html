@@ -1,0 +1,47 @@
+{{define "complaints"}}
+{{template "head" .}}
+{{template "modNav" .}}
+<main>
+  <section class="section row left-align container">
+    <div id="complaint_list" class=" row ">
+          
+          <div class="row">
+                <div class="table">
+                       <table id="mpTable" class="mdl-data-table" >
+                         <thead>
+                           <tr class = "success">
+                            <th>Last Updated</th>
+                            <th>Created At</th>
+                            <th>Email</th>
+                            <th>Full Name</th>
+                             <th>Comment</th>
+                             <th>Attachement</th>
+
+                           </tr>
+                         </thead>
+                         <tbody>
+                          {{range .Complaints}}
+                          <tr>
+                            <td> <script>document.write(new Date({{.UpdatedAt}}).toLocaleDateString())</script></td>
+                            <td> <script>document.write(new Date({{.CreatedAt}}).toLocaleDateString())</script></td>
+                            <td> {{.Email}}</td>
+                            <td> {{.Fullname}}</td>
+                            <td> {{.Comment}}</td>
+                            <td>{{if .File}}<a class="btn blue" href="/uploads/{{.File}}">Download Attachment</a>{{end}} </td>
+                            
+                            </tr>
+                      {{end}}
+                    
+                         </tbody>
+                       </table>
+                     </div>
+   
+                   </div>
+              
+         </div>
+   
+       </section>
+   
+  </main>
+  {{template "footer" .}}
+{{end}}

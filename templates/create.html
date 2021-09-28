@@ -1,0 +1,83 @@
+{{define "create"}}
+{{template "head" .}}
+{{template "nav" .}}
+<main>
+    <section class=" section row center-align container">
+      <div class="row">
+        <div id="create" class=" container row">
+        
+          <form
+            class="col s12"
+            action="/new"
+            method="post"
+            name="create_form"
+            enctype="multipart/form-data"
+          >
+          {{ .CSRF }}
+            <h4>Add a new complaint</h4>
+            <div class="row">
+                <div class="input-field col s12">
+                  <input
+                    id="fullname"
+                    type="text"
+                    name="fullname"
+                    placeholder="Full Name"
+                    class="validate"
+                    disabled
+                    required
+                    value="{{.Fullname}}"
+                  />
+                  <label for="fullname">Full Name</label>
+                </div>
+              </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input
+                  id="email"
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  class="validate"
+                  disabled
+                  required
+                  value="{{.Email}}"
+                />
+                <label for="email">Email</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <textarea name="comment" id="comment" class="materialize-textarea" required></textarea>
+                <label for="comment">Comment</label>
+              </div>
+            </div>
+
+            <div class="row">
+      
+             <div class="file-field input-field  col s12">
+           <div class="btn">
+             <span>Upload a PDF file</span>
+             <input name="file" type="file" accept=".pdf, application/pdf">
+           </div>
+           <div class="file-path-wrapper">
+             <input  class="file-path validate" type="text">
+           </div>
+           
+         </div>
+     </div>
+            <div class="row">
+              <button
+                type="submit"
+                name="btn_signup"
+                class="col s12 btn btn-large waves-green waves-effect deep-purple"
+              >
+                Create
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+  {{template "footer" .}}
+{{end}}

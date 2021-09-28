@@ -1,0 +1,50 @@
+{{define "members"}}
+{{template "head" .}}
+{{template "modNav" .}}
+<main>
+  <section class="section row left-align container">
+    <div id="complaint_list" class=" row ">
+          
+          <div class="row">
+                <div class="table">
+                       <table id="mpTable" class="mdl-data-table" >
+                         <thead>
+                           <tr class = "success">
+                            <th>Email</th>
+                            <th>Full Name</th>
+                            <th>Action</th>
+                           </tr>
+                         </thead>
+                         <tbody>
+                          {{range .Members}}
+                          <tr>
+          
+                            <td> {{.Email}}</td>
+                            <td> {{.Fullname}}</td>
+                     
+                            <td><form action="/{{if .Enabled}}disable{{else}}enable{{end}}" method="POST"> {{$.CSRF}}    <input
+                              id="email"
+                              type="email"
+                              name="email"
+                              placeholder="Email"
+                              class="validate"
+                              hidden
+                              value="{{.Email}}"
+                            /> <button type="submit" class="btn {{if .Enabled}}red{{else}}green{{end}}">{{if .Enabled}}Disable {{else}}Enable{{end}}</button> </form></td>
+                            
+                            </tr>
+                      {{end}}
+                    
+                         </tbody>
+                       </table>
+                     </div>
+   
+                   </div>
+              
+         </div>
+   
+       </section>
+   
+  </main>
+  {{template "footer" .}}
+{{end}}

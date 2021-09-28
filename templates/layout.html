@@ -1,0 +1,142 @@
+{{define "head"}}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>City Report Center</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/vendor/materialize/css/materialize.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/vendor/font-awesome/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/vendor/datatables/css/jquery.dataTables.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const error = urlParams.get('error');
+      const success = urlParams.get('success');
+      if (error){
+        document.write(`<div class='red white-text center-align'>${error}</div>`)
+      }
+      if (success){
+        document.write(`<div class='green white-text center-align'>${success}</div>`)
+      }
+    </script>
+  {{end}}
+
+  {{define "nav"}}
+
+  <nav class="blue">
+    <div class="nav-wrapper">
+      <a href="/" class="brand-logo">Addis Ababa City Public Compliant Report Center</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/home">Home</a></li>
+        <li><a href="/new">New Report</a></li>
+        <li><form action="/logout" method="post">  {{ .CSRF }} <button class="btn waves-green waves-effect deep-purple" type="submit">Logout</button> </form></li>
+      </ul>
+    </div>
+  </nav>
+  {{end}}
+
+  {{define "modNav"}}
+
+  <nav class="blue">
+    <div class="nav-wrapper">
+      <a href="/" class="brand-logo">Moderator Dashboard</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/complaints">Complaints</a></li>
+        <li><a href="/members">Members</a></li>
+        <li><form action="/logout" method="post">  {{ .CSRF }} <button class="btn waves-green waves-effect deep-purple" type="submit">Logout</button> </form></li>
+      </ul>
+    </div>
+  </nav>
+  {{end}}
+
+<section id="banner" class=" center container section">
+  <h2>Welcome to Addis Ababa City Road Report Center</h2>
+  <form action="/user/report" th:method="get">
+  <button type="submit" class="blue  accent-4 btn-large waves-effect pulse">Report a Complaint</button>
+  </form>
+
+<p class="flow-text">The Crime Report Center allows you to report crimes to the police
+much faster than the conventional phone system.</p>
+</section></div>
+<section class="row center-align container">
+  <br><br>
+  <h4>Features</h4>
+  <div class="col s12 m6 l4">
+      <h1 class="fa fa-5x fa-pencil"></h1>
+      <h5>Easy Reporting</h5>
+      <p>You can report crimes in your location easly. All you need to do is fill a simple form and we will respond to you as soon as possible.</p>
+  </div>
+  <div class="col s12 m6 l4">
+      <h1 class=" fa fa-5x fa-flash"></h1>
+      <h5>Fast Response</h5>
+      <p>Because you send us all the information we need in a well organized way, we can also respond to your enquires fast.</p>
+  </div>
+  <div class="col s12 m6 l4">
+       <h1 class="fa fa-5x fa-newspaper-o"></h1>
+      <h5>Get Informed</h5>
+      <p>Through the News section, you can get informations concerning the police department. We also post missing person reports, stolen vehicle reports and other information that you can, as a citizen contribute to.</p>
+  </div>
+</section>
+
+{{define "footer"}}
+
+   
+    
+ <script type="text/javascript" src="/vendor/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/vendor/materialize/js/materialize.min.js"></script>
+<script type="text/javascript">
+
+
+  $(document).ready(function(){
+  $('.sidenav').sidenav();
+  $('#mpTable').DataTable();
+ 
+  $('.dropdown-trigger').dropdown();
+  $('.carousel').carousel({
+    indicators: true,
+    duration: 1
+  });
+  $('.tabs').tabs();
+  $('.modal').modal();
+  $('.datepicker').datepicker();
+  $('select').formSelect();
+  $('.materialboxed').materialbox();
+  
+  /* smooth transition between tabs*/
+  $('#new_post_tab').click(function(){
+	    $('#post_news').fadeIn("slow");
+	    $('.prev-news-card').fadeOut("slow");
+	  });
+
+	    $('#prev_post_tab').click(function(){
+	      $('#post_news').fadeOut("slow");
+	      $('.prev-news-card').fadeIn("slow");
+	    });
+  
+});
+ 
+
+
+  
+</script>
+</body>
+</html>
+{{end}}

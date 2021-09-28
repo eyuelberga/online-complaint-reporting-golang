@@ -1,0 +1,142 @@
+{{define "signup"}}
+{{template "head" .}}
+<main>
+    <section class=" section row center-align container">
+      <div class="row">
+        <div id="login" class=" container row">
+          <div class="row">
+            <div class="col s6"></div>
+            <div class="col s6">
+              <form method="get" action="/login">
+                <span>Already have an account? </span
+                ><button
+                  class="btn btn-small waves-green waves-effect green"
+                  type="submit"
+                >
+                  Login
+                </button>
+              </form>
+            </div>
+          </div>
+          <form
+            class="col s12"
+            action="/signup"
+            method="post"
+            name="signup_form"
+          >
+          {{ .CSRF }}
+            <h4>New Member Registration</h4>
+            <div class="row">
+                <div class="input-field col s12">
+                  <input
+                    id="fullname"
+                    type="text"
+                    name="fullname"
+                    placeholder="Full Name"
+                    class="validate"
+                    required
+                  />
+                  <label for="fullname">Full Name</label>
+                </div>
+              </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input
+                  id="email"
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  class="validate"
+                  required
+                />
+                <label for="email">Email</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  class="validate"
+                  required
+                  minlength="8"
+                />
+                <label for="password">Password</label>
+              </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                  <input
+                    id="password_confirm"
+                    type="password"
+                    placeholder="Confirm Password"
+                    name="password_confirm"
+                    class="validate"
+                    required
+                    minlength="8"
+                  />
+                  <label for="password_confirm">Confirm Password</label>
+                </div>
+              </div>
+              <div class="row">
+                <input
+                id="captcha_id"
+                type="text"
+                name="captcha_id"
+               value="{{.CAPTCHA}}"
+               hidden
+               required
+              />
+                <img  alt="CAPTCHA" w="120" h="80" src="/captcha/{{.CAPTCHA}}" />
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input
+                    id="captcha_solution"
+                    type="text"
+                    name="captcha_solution"
+                    placeholder="CAPTCHA solution"
+                    class="validate"
+                    required
+                  />
+                  <label for="captcha_solution">CAPTCHA solution</label>
+                </div>
+
+              </div>
+            <div class="row">
+              <button
+              disabled
+                type="submit"
+                name="btn_signup"
+                id="btn_signup"
+                class="col s12 btn btn-large waves-green waves-effect deep-purple"
+              >
+                Signup
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+ 
+  {{template "footer" .}}
+  <script>
+    function checkPasswordMatch(){
+      var password =  document.getElementById("password").value;
+      var confirm_password = document.getElementById("password_confirm").value;;
+  
+      if (password === confirm_password){
+        
+        document.getElementById("btn_signup").removeAttribute("disabled");
+      }
+      else{
+        document.getElementById("btn_signup").setAttribute("disabled",true);
+      }
+    }
+    document.getElementById("password").addEventListener('input',checkPasswordMatch);
+    document.getElementById("password_confirm").addEventListener('input',checkPasswordMatch);
+    </script>
+{{end}}
